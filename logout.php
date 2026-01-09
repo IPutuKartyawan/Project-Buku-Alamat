@@ -1,6 +1,5 @@
 <?php
 
-// require necessary files
-require_once 'inc/config.php';
-// log out user
-Utility::logout();
+session_start();
+session_destroy();
+header("Location: ../index.php");

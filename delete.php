@@ -1,11 +1,12 @@
 <?php
 
-// require necessary files
-require_once 'inc/config.php';
-// check if user is logged in
-Utility::checkLogin();
-// get user ID from query parameter
+require '../check_session.php';
+require '../config/database.php';
 
-// load user
+$stmt = $pdo->prepare(
+    "DELETE FROM contacts WHERE id=? AND user_id=?"
+);
+$stmt->execute([$_GET['id'], $_SESSION['user_id']]);
 
-// attempt to remove user
+header("Location: index.php");
+
