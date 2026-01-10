@@ -1,48 +1,68 @@
 <?php
+/**
+ * File   : index.php
+ * Fungsi : Halaman awal aplikasi Buku Alamat
+ * Catatan: PHP Native tanpa framework
+ */
 
-require '../check_session.php';
-require '../config/database.php';
+session_start();
 
-$search = $_GET['search'] ?? '';
-
-$stmt = $pdo->prepare(
-    "SELECT * FROM contacts
-     WHERE user_id=? AND 
-     (name LIKE ? OR phone LIKE ?)
-     ORDER BY name ASC"
-);
-
-$stmt->execute([
-    $_SESSION['user_id'],
-    "%$search%",
-    "%$search%"
-]);
-
-$contacts = $stmt->fetchAll();
+// Jika sudah login, langsung ke dashboard
+if (isset($_SESSION['user_id'])) {
+    header("Location: dashboard.php");
+    exit;
+}
 ?>
 
-<h3>Daftar Kontak</h3>
-<form method="get">
-    <input type="text" name="search" placeholder="Cari kontak">
-    <button>Cari</button>
-</form>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Buku Alamat - PHP Native</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
 
-<a href="create.php">Tambah Kontak</a> |
-<a href="export_csv.php">Export CSV</a>
+<div class="navbar">
+    <a href="index.php">Home</a>
+    <a href="auth/login.php">Login</a>
+    <a href="auth/register.php">Registrasi</a>
+</div>
 
-<table border="1">
-<tr>
-    <th>Nama</th><th>Telepon</th><th>Kategori</th><th>Aksi</th>
-</tr>
-<?php foreach ($contacts as $c): ?>
-<tr>
-    <td><?= htmlspecialchars($c['name']); ?></td>
-    <td><?= $c['phone']; ?></td>
-    <td><?= $c['category']; ?></td>
-    <td>
-        <a href="edit.php?id=<?= $c['id']; ?>">Edit</a> |
-        <a href="delete.php?id=<?= $c['id']; ?>">Hapus</a>
-    </td>
-</tr>
-<?php endforeach; ?>
-</table>
+<div class="container">
+    <h1>📘 Aplikasi Buku Alamat</h1>
+
+    <p>
+        Aplikasi Buku Alamat ini dibuat menggunakan 
+        <strong>PHP Native tanpa framework backend</strong>.
+        Sistem ini memungkinkan pengguna untuk menyimpan,
+        mengelola, dan mencari data kontak secara aman.
+    </p>
+
+    <p>
+        Setiap pengguna harus melakukan autentikasi terlebih dahulu
+        sebelum dapat mengakses dan mengelola data kontak pribadinya.
+    </p>
+
+    <h3>✨ Fitur Utama</h3>
+    <ul>
+        <li>Registrasi dan Login pengguna</li>
+        <li>Manajemen kontak (CRUD)</li>
+        <li>Pencarian dan pengelompokan kontak</li>
+        <li>Manajemen sesi pengguna</li>
+        <li>Ekspor data kontak ke CSV</li>
+    </ul>
+
+    <p>
+        Silakan <a href="auth/login.php">Login</a> atau
+        <a href="auth/register.php">Registrasi</a>
+        untuk mulai menggunakan aplikasi.
+    </p>
+</div>
+
+<div class="footer">
+    <p>&copy; <?php echo date("Y"); ?> | Project Pengembangan Backend - PHP Native</p>
+</div>
+
+</body>
+</html>

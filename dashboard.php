@@ -1,7 +1,9 @@
 <?php
 
 
-require 'check_session.php';
+require_once __DIR__ . '/check_session.php';
+require_once __DIR__ . '/config/database.php';
+
 ?>
 
 <!DOCTYPE html>

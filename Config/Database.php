@@ -3,7 +3,7 @@
 $host = "localhost";
 $dbname = "buku_alamat";
 $username = "root";
-$password = "";
+$password = "123";
 
 
 $pdo = null;
