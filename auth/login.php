@@ -20,12 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($pass, $user['password'])) {
-            $_SESSION['user_id']   = $user['id'];
-            $_SESSION['user_name'] = $user['name'];
+ if ($user && password_verify($pass, $user['password'])) {
+    $_SESSION['user_id']   = $user['id'];
+    $_SESSION['user_name'] = $user['name'];
+    $_SESSION['user_role'] = $user['role'];
 
-            header("Location: ../dashboard.php");
-            exit;
+    header("Location: ../dashboard.php");
+    exit;
         } else {
             $error = "Email atau password salah.";
         }

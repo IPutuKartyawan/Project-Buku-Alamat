@@ -1,5 +1,4 @@
 <?php
-
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 session_start();
@@ -17,15 +16,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($name === '' || $email === '' || $pass === '') {
         $message = "Semua field wajib diisi.";
     } else {
-        $hash = password_hash($pass, PASSWORD_DEFAULT);
 
-        $stmt = $pdo->prepare(
-            "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
-        );
-        $stmt->execute([$name, $email, $hash]);
+        
+        $check = $pdo->prepare("SELECT id FROM users WHERE email = ?");
+        $check->execute([$email]);
 
-        header("Location: login.php");
-        exit;
+        if ($check->rowCount() > 0) {
+            $message = "Email sudah terdaftar. Silakan gunakan email lain.";
+        } else {
+
+            
+            $hash = password_hash($pass, PASSWORD_DEFAULT);
+
+           
+            $stmt = $pdo->prepare(
+                "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
+            );
+            $stmt->execute([$name, $email, $hash]);
+
+            header("Location: login.php");
+            exit;
+        }
     }
 }
 ?>
