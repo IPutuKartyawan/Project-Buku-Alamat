@@ -1,14 +1,19 @@
 <?php
-
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../check_session.php';
-
 require_once __DIR__ . '/../config/database.php';
 
-$search = $_GET['search'] ?? '';
-$search = trim($search);
+
+
+$baseUrl =
+    (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')
+    . '://' . $_SERVER['HTTP_HOST']
+    . dirname(dirname($_SERVER['SCRIPT_NAME']));
+
+$search = trim($_GET['search'] ?? '');
+
 
 $sql = "
     SELECT id, name, phone, category
@@ -34,21 +39,26 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <title>Daftar Kontak</title>
-    <link rel="stylesheet" href="/asset/style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 
+
 <div class="navbar">
-    <a href="/dashboard.php">Dashboard</a>
-    <a href="/contacts/index.php">Kontak</a>
-    <a href="/auth/logout.php">Logout</a>
+    <div class="brand">Buku Alamat</div>
+    <div class="nav-link">
+        <a href="<?= $baseUrl ?>/dashboard.php">Dashboard</a>
+        <a href="<?= $baseUrl ?>/contacts/index.php">Kontak</a>
+        <a href="<?= $baseUrl ?>/auth/logout.php">Logout</a>
+    </div>
 </div>
+
 
 <div class="container">
     <h2>Daftar Kontak</h2>
 
-
-    <form method="get">
+    
+    <form method="get" class="search-box">
         <label for="search">Cari Kontak</label>
         <input
             type="text"
@@ -60,10 +70,10 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <button type="submit">Cari</button>
     </form>
 
-    
+   
     <p>
-        <a href="create.php">+ Tambah Kontak</a> |
-        <a href="export_csv.php">Export CSV</a>
+        <a href="create.php" class="btn">+ Tambah Kontak</a>
+        <a href="export_csv.php" class="btn btn-secondary">Export CSV</a>
     </p>
 
     
@@ -77,16 +87,17 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </tr>
         </thead>
         <tbody>
-        <?php if (count($contacts) > 0): ?>
+        <?php if (!empty($contacts)): ?>
             <?php foreach ($contacts as $c): ?>
                 <tr>
                     <td><?= htmlspecialchars($c['name']); ?></td>
                     <td><?= htmlspecialchars($c['phone']); ?></td>
                     <td><?= htmlspecialchars($c['category']); ?></td>
                     <td>
-                        <a href="edit.php?id=<?= $c['id']; ?>">Edit</a> |
+                        <a href="edit.php?id=<?= $c['id']; ?>" class="btn btn-secondary">Edit</a>
                         <a
                             href="delete.php?id=<?= $c['id']; ?>"
+                            class="btn btn-danger"
                             onclick="return confirm('Yakin ingin menghapus kontak ini?')"
                         >
                             Hapus

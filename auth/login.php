@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id']   = $user['id'];
             $_SESSION['user_name'] = $user['name'];
 
-            header("Location: /dashboard.php");
+            header("Location: ../dashboard.php");
             exit;
         } else {
             $error = "Email atau password salah.";
@@ -36,28 +36,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="/asset/style.css">
+    <title>Login | Buku Alamat</title>
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 
-<h2>Login Buku Alamat</h2>
+<div class="navbar">
+    <div class="brand">Buku Alamat</div>
+    <div>
+        <a href="register.php">Register</a>
+    </div>
+</div>
 
-<?php if ($error): ?>
-    <p style="color:red;"><?= htmlspecialchars($error) ?></p>
-<?php endif; ?>
+<div class="container">
+    <h2>Login</h2>
 
-<form method="post">
-    <label>Email</label><br>
-    <input type="email" name="email"><br><br>
+    <?php if ($error): ?>
+        <div class="alert alert-error">
+            <?= htmlspecialchars($error); ?>
+        </div>
+    <?php endif; ?>
 
-    <label>Password</label><br>
-    <input type="password" name="password"><br><br>
+    <form method="post">
+        <label>Email</label>
+        <input type="email" name="email" required>
 
-    <button type="submit">Login</button>
-</form>
+        <label>Password</label>
+        <input type="password" name="password" required>
 
-<p>Belum punya akun? <a href="register.php">Daftar</a></p>
+        <button type="submit">Login</button>
+    </form>
+
+    <p>Belum punya akun?
+        <a href="register.php">Daftar di sini</a>
+    </p>
+</div>
+
+<div class="footer">
+    &copy; <?= date('Y'); ?> Buku Alamat
+</div>
 
 </body>
 </html>

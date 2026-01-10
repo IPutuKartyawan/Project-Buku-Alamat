@@ -33,31 +33,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Registrasi Pengguna</title>
-    <link rel="stylesheet" href="/asset/style.css">
+    <title>Registrasi | Buku Alamat</title>
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 
-<h2>Registrasi Buku Alamat</h2>
+<div class="navbar">
+    <div class="brand">Buku Alamat</div>
+    <div>
+        <a href="login.php">Login</a>
+    </div>
+</div>
 
-<?php if ($message): ?>
-    <p style="color:red;"><?= htmlspecialchars($message) ?></p>
-<?php endif; ?>
+<div class="container">
+    <h2>Registrasi</h2>
 
-<form method="post">
-    <label>Nama Lengkap</label><br>
-    <input type="text" name="name"><br><br>
+    <?php if ($message): ?>
+        <div class="alert alert-error">
+            <?= htmlspecialchars($message); ?>
+        </div>
+    <?php endif; ?>
 
-    <label>Email</label><br>
-    <input type="email" name="email"><br><br>
+    <form method="post">
+        <label>Nama Lengkap</label>
+        <input type="text" name="name" required>
 
-    <label>Password</label><br>
-    <input type="password" name="password"><br><br>
+        <label>Email</label>
+        <input type="email" name="email" required>
 
-    <button type="submit">Daftar</button>
-</form>
+        <label>Password</label>
+        <input type="password" name="password" required>
 
-<p>Sudah punya akun? <a href="login.php">Login</a></p>
+        <button type="submit">Daftar</button>
+    </form>
+
+    <p>Sudah punya akun?
+        <a href="login.php">Login di sini</a>
+    </p>
+</div>
+
+<div class="footer">
+    &copy; <?= date('Y'); ?> Buku Alamat
+</div>
 
 </body>
 </html>

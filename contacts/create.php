@@ -1,29 +1,22 @@
 <?php
 
-
-
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-
 
 require_once __DIR__ . '/../check_session.php';
 require_once __DIR__ . '/../config/database.php';
 
-
 $errors = [];
 $name = $phone = $email = $address = $category = '';
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-   
     $name     = trim($_POST['name'] ?? '');
     $phone    = trim($_POST['phone'] ?? '');
     $email    = trim($_POST['email'] ?? '');
     $address  = trim($_POST['address'] ?? '');
     $category = trim($_POST['category'] ?? '');
 
-    
     if ($name === '') {
         $errors[] = "Nama wajib diisi.";
     }
@@ -36,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Format email tidak valid.";
     }
 
-    
     if (empty($errors)) {
 
         $sql = "
@@ -56,7 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':category' => $category
         ]);
 
-        
         header("Location: index.php");
         exit;
     }
@@ -66,25 +57,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Tambah Kontak</title>
-    <link rel="stylesheet" href="/asset/style.css">
+    <title>Tambah Kontak | Buku Alamat</title>
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 
-
 <div class="navbar">
-    <a href="/dashboard.php">Dashboard</a>
-    <a href="/contacts/index.php">Kontak</a>
-    <a href="/auth/logout.php">Logout</a>
+    <div class="brand">Buku Alamat</div>
+    <div>
+        <a href="../dashboard.php">Dashboard</a>
+        <a href="index.php">Kontak</a>
+        <a href="../auth/logout.php">Logout</a>
+    </div>
 </div>
-
 
 <div class="container">
     <h2>Tambah Kontak Baru</h2>
 
-   
     <?php if (!empty($errors)): ?>
-        <div style="color:red; margin-bottom:15px;">
+        <div class="alert alert-error">
             <ul>
                 <?php foreach ($errors as $e): ?>
                     <li><?= htmlspecialchars($e); ?></li>
@@ -93,7 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
 
-    
     <form method="post">
         <label>Nama</label>
         <input type="text" name="name" value="<?= htmlspecialchars($name); ?>" required>
@@ -117,10 +107,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </select>
 
         <button type="submit">Simpan Kontak</button>
-        <a href="index.php">Batal</a>
+        <a href="index.php" class="btn btn-secondary">Batal</a>
     </form>
 </div>
-
 
 <div class="footer">
     &copy; <?= date('Y'); ?> Sistem Buku Alamat | PHP Native

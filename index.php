@@ -1,13 +1,8 @@
 <?php
-/**
- * File   : index.php
- * Fungsi : Halaman awal aplikasi Buku Alamat
- * Catatan: PHP Native tanpa framework
- */
+
 
 session_start();
 
-// Jika sudah login, langsung ke dashboard
 if (isset($_SESSION['user_id'])) {
     header("Location: dashboard.php");
     exit;
@@ -30,7 +25,7 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 <div class="container">
-    <h1>📘 Aplikasi Buku Alamat</h1>
+    <h1> Aplikasi Buku Alamat</h1>
 
     <p>
         Aplikasi Buku Alamat ini dibuat menggunakan 

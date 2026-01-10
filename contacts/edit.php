@@ -1,14 +1,16 @@
 <?php
 
-
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-
 require_once __DIR__ . '/../check_session.php';
-
-
 require_once __DIR__ . '/../config/database.php';
+
+
+$baseUrl =
+    (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http')
+    . '://' . $_SERVER['HTTP_HOST']
+    . dirname(dirname($_SERVER['SCRIPT_NAME']));
 
 
 $id = $_GET['id'] ?? null;
@@ -32,14 +34,13 @@ $stmt->execute([
 
 $contact = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
 if (!$contact) {
     header("Location: index.php");
     exit;
 }
 
 
-$errors = [];
+$errors   = [];
 $name     = $contact['name'];
 $phone    = $contact['phone'];
 $email    = $contact['email'];
@@ -55,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $address  = trim($_POST['address'] ?? '');
     $category = trim($_POST['category'] ?? '');
 
-    
     if ($name === '') {
         $errors[] = "Nama wajib diisi.";
     }
@@ -68,9 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Format email tidak valid.";
     }
 
-    
     if (empty($errors)) {
-
         $updateSql = "
             UPDATE contacts
             SET name = :name,
@@ -103,24 +101,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Edit Kontak</title>
-    <link rel="stylesheet" href="/asset/style.css">
+    <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 
 
 <div class="navbar">
-    <a href="/dashboard.php">Dashboard</a>
-    <a href="/contacts/index.php">Kontak</a>
-    <a href="/auth/logout.php">Logout</a>
+    <div class="brand">Buku Alamat</div>
+    <div class="nav-link">
+        <a href="<?= $baseUrl ?>/dashboard.php">Dashboard</a>
+        <a href="<?= $baseUrl ?>/contacts/index.php">Kontak</a>
+        <a href="<?= $baseUrl ?>/auth/logout.php">Logout</a>
+    </div>
 </div>
 
 
 <div class="container">
     <h2>Edit Kontak</h2>
 
-    
     <?php if (!empty($errors)): ?>
-        <div style="color:red; margin-bottom:15px;">
+        <div class="alert alert-error">
             <ul>
                 <?php foreach ($errors as $e): ?>
                     <li><?= htmlspecialchars($e); ?></li>
@@ -129,7 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
 
-    
     <form method="post">
         <label>Nama</label>
         <input type="text" name="name" value="<?= htmlspecialchars($name); ?>" required>
@@ -153,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </select>
 
         <button type="submit">Update Kontak</button>
-        <a href="index.php">Batal</a>
+        <a href="index.php" class="btn btn-secondary">Batal</a>
     </form>
 </div>
 

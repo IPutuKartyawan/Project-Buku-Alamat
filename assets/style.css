@@ -6,13 +6,11 @@
     font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
 }
 
-
 body {
     background: linear-gradient(180deg, #f4f6f8, #e9eef3);
     color: #333;
     line-height: 1.6;
 }
-
 
 .navbar {
     background: linear-gradient(90deg, #2c3e50, #34495e);
@@ -36,6 +34,7 @@ body {
     text-decoration: none;
     font-size: 14px;
     position: relative;
+    padding-bottom: 4px;
 }
 
 .navbar a::after {
@@ -43,15 +42,16 @@ body {
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -3px;
+    bottom: 0;
     left: 0;
     background-color: #1abc9c;
-    transition: width 0.3s;
+    transition: width 0.3s ease;
 }
 
 .navbar a:hover::after {
     width: 100%;
 }
+
 
 .container {
     width: 80%;
@@ -72,7 +72,7 @@ h1, h2, h3 {
 
 h2::after {
     content: "";
-    width: 50px;
+    width: 55px;
     height: 3px;
     background-color: #3498db;
     position: absolute;
@@ -80,7 +80,6 @@ h2::after {
     left: 0;
     border-radius: 3px;
 }
-
 
 p {
     margin-bottom: 12px;
@@ -157,7 +156,6 @@ button:hover,
     box-shadow: 0 8px 15px rgba(0,0,0,0.15);
 }
 
-
 .btn-danger {
     background: linear-gradient(90deg, #e74c3c, #c0392b);
 }
@@ -172,16 +170,19 @@ button:hover,
     border-radius: 6px;
     margin-bottom: 18px;
     font-size: 14px;
+    border-left: 5px solid;
 }
 
 .alert-error {
     background-color: #fdecea;
     color: #922b21;
+    border-color: #e74c3c;
 }
 
 .alert-success {
     background-color: #eafaf1;
     color: #1e8449;
+    border-color: #2ecc71;
 }
 
 
@@ -190,14 +191,15 @@ table {
     border-collapse: collapse;
     margin-top: 25px;
     font-size: 14px;
-    overflow: hidden;
     border-radius: 8px;
+    overflow: hidden;
 }
 
 table th {
     background: linear-gradient(90deg, #3498db, #2980b9);
     color: #ffffff;
     padding: 12px;
+    text-align: center;
 }
 
 table td {
