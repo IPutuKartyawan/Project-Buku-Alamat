@@ -28,10 +28,10 @@ if (isset($_SESSION['user_id'])) {
     <h1> Aplikasi Buku Alamat</h1>
 
     <p>
-        Aplikasi Buku Alamat ini dibuat menggunakan 
-        <strong>PHP Native tanpa framework backend</strong>.
+        Aplikasi Buku Alamat ini dibuat
+        <strong>Sepenuh hati dalam membantu</strong>.
         Sistem ini memungkinkan pengguna untuk menyimpan,
-        mengelola, dan mencari data kontak secara aman.
+        mengelola, dan mencari data kontak secara aman dan mudah.
     </p>
 
     <p>
@@ -39,7 +39,7 @@ if (isset($_SESSION['user_id'])) {
         sebelum dapat mengakses dan mengelola data kontak pribadinya.
     </p>
 
-    <h3>✨ Fitur Utama</h3>
+    <h3> Fitur Utama Buku Alamat</h3>
     <ul>
         <li>Registrasi dan Login pengguna</li>
         <li>Manajemen kontak (CRUD)</li>
