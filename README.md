@@ -10,8 +10,8 @@ Selain itu, sistem ini dilengkapi dengan autentikasi pengguna, sehingga setiap o
 Tujuan utama aplikasi ini adalah untuk menyediakan sistem pengelolaan kontak yang sederhana, aman, dan efisien, serta memudahkan pengguna dalam mengelola informasi kontak pribadi maupun profesional.
 
 # Daftar Anggota : 
-    1. RAMADHAN DWIPA PUTRA WIJAYA (230030606)
-    2. I PUTU KARTYAWAN (240030194)
+    1. RAMADHAN DWIPA PUTRA WIJAYA (230030606), Menetukan Judul Project, struktur Aplikasi, Database. Akun git : Vigillian
+    2. I PUTU KARTYAWAN (240030194), Implementasi koneksi database menggunakan PDO, Integrasi frontend dengan backend, Styling menggunakan CSS, akun git : IPutuKartyawan
     
 # Lingkungan pengembangan : 
 Aplikasi Buku Alamat dikembangkan menggunakan lingkungan pengembangan web standar yang mendukung PHP Native dan MySQL. Lingkungan pengembangan yang digunakan meliputi:
